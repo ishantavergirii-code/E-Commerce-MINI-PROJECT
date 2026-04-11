@@ -14,8 +14,6 @@ body {
 
 /* ================= HEADER ================= */
 
-/* ================= HEADER ================= */
-
 header {
     position: absolute;
     top: 0;
@@ -33,7 +31,7 @@ header {
 
 /* Logo */
 .logo img {
-    height: 150px;
+    height: 120px;
 }
 
 /* Search */
@@ -49,7 +47,7 @@ header {
 .top-links ul {
     list-style: none;
     display: flex;
-    gap: 20px;
+    gap: 60px;
 }
 
 .top-links ul li a {
@@ -67,12 +65,15 @@ header {
 .main-nav {
     display: flex;
     justify-content: center;
-    padding: px 0;
+    position: absolute;
+    left: 650px;
+    padding: 0px;
 }
 
 .main-nav ul {
     list-style: none;
     display: flex;
+    justify-content: center;
     gap: 40px;
 }
 
@@ -123,75 +124,6 @@ header {
     z-index: -1;
 }
 
-/* Text Content */
-.video-section .content {
-    position: relative;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-.video-section .content h1 {
-    font-size: 50px;
-    letter-spacing: 2px;
-}
-
-.luxury-btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: transparent;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    transition: 0.3s ease;
-}
-
-.luxury-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* subtle hover effect */
-    color: gold;                                /* change text color on hover */
-    border-color: gold;
-}
-
-.orange-btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: transparent;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    transition: 0.3s ease;
-}
-
-.orange-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* subtle hover effect */
-    color: gold;                                /* change text color on hover */
-    border-color: gold;
-}
-
-.black-btn {
-    display: inline-block;
-    padding: 12px 25px;
-    background-color: transparent;
-    color: white;
-    text-decoration: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-    border-radius: 4px;
-    transition: 0.3s ease;
-}
-
-.black-btn:hover {
-    background-color: rgba(255, 255, 255, 0.1); /* subtle hover effect */
-    color: gold;                                /* change text color on hover */
-    border-color: gold;
-}
-
 
 /* ================= FOOTER ================= */
 
@@ -218,7 +150,7 @@ header {
 }
 
 .footer-column ul li {
-    margin-bottom: 12px;
+    margin-bottom: 5px;
 }
 
 .footer-column ul li a {
@@ -237,6 +169,63 @@ header {
     margin-top: 40px;
     font-size: 13px;
     color: #888;
+}
+
+
+/* ================= FOOTER SUPPORT COLUMN ================= */
+
+.support-column .follow-title {
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: none;
+    margin-bottom: 15px;
+    color: #fff;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.social-icons a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 45px;
+    height: 45px;
+    background: #333;
+    border-radius: 50%;
+    color: #fff;
+    text-decoration: none;
+    font-size: 20px;
+    transition: 0.3s;
+}
+
+.social-icons a:hover {
+    background: #555;
+    color: gold;
+}
+
+.help-section p {
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: #fff;
+    margin-bottom: 8px;
+}
+
+.help-section .help-text {
+    margin-bottom: 15px;
+}
+
+.help-section .chat-link {
+    color: #fff;
+    text-decoration: underline;
+}
+
+.help-section .chat-link:hover {
+    color: gold;
 }
 
 
