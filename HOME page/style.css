@@ -1,0 +1,263 @@
+/* ================= RESET ================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+/* ================= HEADER ================= */
+
+/* ================= HEADER ================= */
+
+header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* TOP BAR */
+.top-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1px 60px;
+}
+
+/* Logo */
+.logo img {
+    height: 150px;
+}
+
+/* Search */
+.search-box input {
+    padding: 8px 15px;
+    border-radius: 25px;
+    border: none;
+    outline: none;
+    width: 220px;
+}
+
+/* Top Links */
+.top-links ul {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.top-links ul li a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.top-links ul li a:hover {
+    color: gold;
+}
+
+/* NAVIGATION BAR */
+.main-nav {
+    display: flex;
+    justify-content: center;
+    padding: px 0;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+}
+
+.main-nav ul li a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    letter-spacing: 1px;
+    transition: 0.3s;
+}
+
+.main-nav ul li a:hover {
+    color: gold;
+}
+
+
+/* ================= HERO SECTION ================= */
+
+/* HERO SECTION */
+/* ================= VIDEO SECTION ================= */
+
+.video-section {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Video Background */
+.video-section video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Dark Overlay */
+.video-section::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: -1;
+}
+
+/* Text Content */
+.video-section .content {
+    position: relative;
+    z-index: 2;
+    color: white;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.video-section .content h1 {
+    font-size: 50px;
+    letter-spacing: 2px;
+}
+
+.luxury-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.luxury-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* subtle hover effect */
+    color: gold;                                /* change text color on hover */
+    border-color: gold;
+}
+
+.orange-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.orange-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* subtle hover effect */
+    color: gold;                                /* change text color on hover */
+    border-color: gold;
+}
+
+.black-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background-color: transparent;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    letter-spacing: 1px;
+    border-radius: 4px;
+    transition: 0.3s ease;
+}
+
+.black-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* subtle hover effect */
+    color: gold;                                /* change text color on hover */
+    border-color: gold;
+}
+
+
+/* ================= FOOTER ================= */
+
+.footer {
+    background: #000;
+    color: white;
+    padding: 60px 80px 20px;
+}
+
+.footer-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.footer-column h3 {
+    font-size: 14px;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+
+.footer-column ul {
+    list-style: none;
+}
+
+.footer-column ul li {
+    margin-bottom: 12px;
+}
+
+.footer-column ul li a {
+    text-decoration: none;
+    color: #ccc;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+.footer-column ul li a:hover {
+    color: gold;
+}
+
+.footer-bottom {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 13px;
+    color: #888;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    header {
+        flex-direction: column;
+        gap: 15px;
+        padding: 20px;
+    }
+
+    header ul,
+    nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .hero-content h1 {
+        font-size: 28px;
+    }
+
+}
