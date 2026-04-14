@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Premium Store</title>
+    <link rel="stylesheet" href="Cart.css">
+    
+    <!-- Modern Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="cart-wrapper">
+        <div class="cart-header">
+            <h1>Shopping Cart</h1>
+            <p>You have <span id="cart-count">2</span> items in your cart</p>
+        </div>
+
+        <div class="cart-container">
+            <!-- Left: Cart Items List -->
+            <div class="cart-items">
+                <!-- Item 1 -->
+                <div class="cart-item">
+                    <img src="../HOME page/Img/w1.png" alt="Watch 1" class="item-img">
+                    <div class="item-details">
+                        <span class="item-brand">VELMORA</span>
+                        <h3>Automatic Luxury Chronograph</h3>
+                        <p class="item-color">Color: Onyx Black</p>
+                    </div>
+                    
+                    <div class="item-actions">
+                        <div class="quantity-control">
+                            <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                            <input type="number" class="qty-input" value="1" min="1" readonly>
+                            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="item-price">$498.84</div>
+                        <button class="remove-btn"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+                <!-- Item 2 -->
+                <div class="cart-item">
+                    <img src="../HOME page/Img/w3.png" alt="Watch 2" class="item-img">
+                    <div class="item-details">
+                        <span class="item-brand">VELMORA</span>
+                        <h3>Classic Silver Timepiece</h3>
+                        <p class="item-color">Color: Silver Frost</p>
+                    </div>
+                    
+                    <div class="item-actions">
+                        <div class="quantity-control">
+                            <button class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                            <input type="number" class="qty-input" value="1" min="1" readonly>
+                            <button class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="item-price">$149.00</div>
+                        <button class="remove-btn"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>
+
+                <a href="../Product page/Product.html" class="continue-shopping">
+                    <i class="fas fa-arrow-left"></i> Continue Shopping
+                </a>
+            </div>
+
+            <!-- Right: Order Summary -->
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+                
+                <div class="summary-details">
+                    <div class="summary-line">
+                        <span>Subtotal</span>
+                        <span>$647.84</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Shipping Estimate</span>
+                        <span>$15.00</span>
+                    </div>
+                    <div class="summary-line">
+                        <span>Tax Estimate (8%)</span>
+                        <span>$51.82</span>
+                    </div>
+                    <div class="summary-line divider"></div>
+                    <div class="summary-line total">
+                        <span>Total</span>
+                        <span>$714.66</span>
+                    </div>
+                </div>
+
+                <div class="promo-code">
+                    <p>Have a promo code?</p>
+                    <div class="promo-input">
+                        <input type="text" placeholder="Enter Code">
+                        <button class="apply-btn">Apply</button>
+                    </div>
+                </div>
+
+                <!-- Link to Payment Page -->
+                <a href="../Payment Gateway/Payment.html" class="checkout-btn">
+                    Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                </a>
+
+                <div class="secure-checkout">
+                    <i class="fas fa-lock"></i> SSL Secured Checkout
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- JS for basic cart logic -->
+    <script>
+        // Simple logic for UI interaction
+        document.querySelectorAll('.qty-btn').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const isPlus = e.currentTarget.classList.contains('plus');
+                const input = e.currentTarget.parentElement.querySelector('.qty-input');
+                let value = parseInt(input.value);
+                
+                if (isPlus) {
+                    input.value = value + 1;
+                } else if (value > 1) {
+                    input.value = value - 1;
+                }
+            });
+        });
+
+        // Simple remove item logic
+        document.querySelectorAll('.remove-btn').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const item = e.currentTarget.closest('.cart-item');
+                item.style.opacity = '0';
+                item.style.transform = 'scale(0.9)';
+                setTimeout(() => {
+                    item.remove();
+                    // Update count visually
+                    const remainingItems = document.querySelectorAll('.cart-item').length;
+                    document.getElementById('cart-count').innerText = remainingItems;
+                }, 300);
+            });
+        });
+    </script>
+</body>
+</html>

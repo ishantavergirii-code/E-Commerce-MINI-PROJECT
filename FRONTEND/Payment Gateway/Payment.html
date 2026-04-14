@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout</title>
+    <link rel="stylesheet" href="Payment.css">
+    
+    <!-- Modern Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="checkout-wrapper">
+        <!-- Order Summary Section -->
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="items-list">
+                <div class="item">
+                    <!-- Placeholder Image for Watch -->
+                    <img src="https://images.unsplash.com/photo-1524592094714-0f0654e20314?auto=format&fit=crop&q=80&w=100&h=100" alt="Watch 1">
+                    <div class="item-details">
+                        <h4>Luxury Chronograph</h4>
+                        <span>Qty: 1</span>
+                    </div>
+                    <div class="item-price">$299.00</div>
+                </div>
+                <div class="item">
+                    <img src="https://images.unsplash.com/photo-1542496658-e33a6d0d50f6?auto=format&fit=crop&q=80&w=100&h=100" alt="Watch 2">
+                    <div class="item-details">
+                        <h4>Classic Leather Watch</h4>
+                        <span>Qty: 1</span>
+                    </div>
+                    <div class="item-price">$149.00</div>
+                </div>
+            </div>
+            
+            <div class="summary-totals">
+                <div class="summary-line">
+                    <span>Subtotal</span>
+                    <span>$448.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Shipping</span>
+                    <span>$15.00</span>
+                </div>
+                <div class="summary-line">
+                    <span>Tax</span>
+                    <span>$35.84</span>
+                </div>
+                <div class="summary-line total">
+                    <span>Total due</span>
+                    <span id="totalAmountDisplay">$498.84</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Details Section -->
+        <div class="payment-container">
+            <h2>Payment Method</h2>
+            <p class="subtitle">Complete your purchase securely</p>
+
+            <div class="method-selector">
+                <label class="method-option active" onclick="selectMethod(event, 'card')">
+                    <i class="fas fa-credit-card"></i> Card
+                </label>
+                <label class="method-option" onclick="selectMethod(event, 'paypal')">
+                    <i class="fab fa-paypal"></i> PayPal
+                </label>
+                <label class="method-option" onclick="selectMethod(event, 'upi')">
+                    <i class="fas fa-mobile-alt"></i> UPI
+                </label>
+                <label class="method-option" onclick="selectMethod(event, 'bank')">
+                    <i class="fas fa-university"></i> Bank
+                </label>
+            </div>
+
+            <!-- Card Payment Form -->
+            <div id="card-form" class="payment-form active">
+                <div class="input-group">
+                    <label>Name on Card</label>
+                    <input type="text" placeholder="John Doe" required>
+                </div>
+                <div class="input-group">
+                    <label>Card Number</label>
+                    <div class="icon-input">
+                        <i class="far fa-credit-card"></i>
+                        <input type="text" placeholder="0000 0000 0000 0000" maxlength="19" required>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-group half">
+                        <label>Expiry Date</label>
+                        <input type="text" placeholder="MM/YY" maxlength="5" required>
+                    </div>
+                    <div class="input-group half">
+                        <label>CVV</label>
+                        <input type="password" placeholder="123" maxlength="4" required>
+                    </div>
+                </div>
+                <button class="pay-btn">Pay <span class="total-button-amt">$498.84</span></button>
+            </div>
+
+            <!-- PayPal Payment Form -->
+            <div id="paypal-form" class="payment-form">
+                <p class="method-instruction">Complete your purchase securely via PayPal Sandbox API.</p>
+                <!-- Container for PayPal SDK Buttons -->
+                <div id="paypal-button-container">
+                </div>
+            </div>
+
+            <!-- UPI Payment Form -->
+            <div id="upi-form" class="payment-form">
+                <div class="input-group">
+                    <label>Enter UPI ID</label>
+                    <div class="icon-input">
+                        <i class="fas fa-at"></i>
+                        <input type="text" placeholder="username@upi" required>
+                    </div>
+                </div>
+                <p class="method-instruction">A secure payment request will be sent to your connected UPI application.</p>
+                <button class="pay-btn">Verify & Pay <span class="total-button-amt">$498.84</span></button>
+            </div>
+
+            <!-- Bank Transfer Form -->
+            <div id="bank-form" class="payment-form">
+                <p class="method-instruction">Select your bank for Net Banking:</p>
+                
+                <div class="bank-grid">
+                    <label class="bank-option">
+                        <input type="radio" name="netbanking" value="hdfc">
+                        <div class="bank-card">
+                            <img src="images/HDFC BANK LOGO.png" alt="HDFC" class="bank-logo-img">
+                            <span class="bank-name">HDFC Bank</span>
+                        </div>
+                    </label>
+                    <label class="bank-option">
+                        <input type="radio" name="netbanking" value="sbi">
+                        <div class="bank-card">
+                            <img src="images/SBI.png" alt="SBI" class="bank-logo-img">
+                            <span class="bank-name">State Bank of India</span>
+                        </div>
+                    </label>
+                    <label class="bank-option">
+                        <input type="radio" name="netbanking" value="icici">
+                        <div class="bank-card">
+                            <img src="images/Icici.png" alt="ICICI" class="bank-logo-img">
+                            <span class="bank-name">ICICI Bank</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="input-group other-banks">
+                    <label>Other Banks</label>
+                    <div class="icon-input">
+                        <i class="fas fa-university"></i>
+                        <select class="bank-select" required>
+                            <option value="" disabled selected>Select from all banks</option>
+                            <option value="axis">Axis Bank</option>
+                            <option value="kotak">Kotak Mahindra Bank</option>
+                            <option value="pnb">Punjab National Bank</option>
+                            <option value="bob">Bank of Baroda</option>
+                            <option value="yes">Yes Bank</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="input-group">
+                    <label>Bank Account Number</label>
+                    <div class="icon-input">
+                        <i class="fas fa-money-check"></i>
+                        <input type="text" placeholder="Enter your 10-18 digit account number" required>
+                    </div>
+                </div>
+
+                <button class="pay-btn">Proceed to Pay <span class="total-button-amt">$498.84</span></button>
+            </div>
+            
+        </div>
+    </div>
+
+    <!-- PayPal Sandbox SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AalWmgkrQdSADHJUFiUPR3nQLr3_3lewcHu5W0KzF0NXcWkwzEDPXIR2oQAhanmskWiAZpk6HiPtGdkp&currency=USD"></script>
+
+    <!-- Script to handle switching of payment methods and PayPal integration -->
+    <script>
+        function selectMethod(event, methodId) {
+            // Remove active class from buttons
+            document.querySelectorAll('.method-option').forEach(el => el.classList.remove('active'));
+            // Hide all forms
+            document.querySelectorAll('.payment-form').forEach(el => el.classList.remove('active'));
+            
+            // Activate the clicked button
+            event.currentTarget.classList.add('active');
+            
+            // Show corresponding active form container
+            document.getElementById(methodId + '-form').classList.add('active');
+        }
+        
+        // Render PayPal Buttons dynamically
+        paypal.Buttons({
+            createOrder: function(data, actions) {
+                // Set up the transaction
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '498.84'
+                        }
+                    }]
+                });
+            },
+            onApprove: function(data, actions) {
+                // Capture the funds from the transaction
+                return actions.order.capture().then(function(details) {
+                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
+</body>
+</html>

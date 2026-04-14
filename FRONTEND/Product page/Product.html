@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Luxury Chronograph - Premium Store</title>
+    <link rel="stylesheet" href="Product.css">
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="product-container">
+        <!-- Gallery Section -->
+        <div class="product-gallery">
+            <!-- Main Image Container -->
+            <div class="main-image-wrapper" id="image3dContainer">
+                <img src="../HOME page/Img/w1.png" alt="Luxury Watch" class="main-img" id="mainImg">
+            </div>
+
+            <!-- Thumbnails -->
+            <div class="thumbnail-list">
+                <!-- Pointing these to the images from your existing img folder -->
+                <img src="../HOME page/Img/w1.png" class="thumbnail active" onclick="changeImage(this.src)"
+                    alt="Angle 1">
+                <img src="../HOME page/Img/w1side.png" class="thumbnail" onclick="changeImage(this.src)" alt="Angle 2">
+                <img src="../HOME page/Img/w2.png" class="thumbnail" onclick="changeImage(this.src)" alt="Angle 3">
+                <img src="../HOME page/Img/w3.png" class="thumbnail" onclick="changeImage(this.src)" alt="Angle 4">
+            </div>
+        </div>
+
+        <!-- Details Section -->
+        <div class="product-details">
+            <span class="brand">VELMORA</span>
+            <h1 class="product-title">Automatic Luxury Chronograph</h1>
+
+            <div class="rating">
+                <div class="stars">
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star"></i>
+                    <i class="fas fa-star-half-alt"></i>
+                </div>
+                <span class="reviews">(128 Reviews)</span>
+            </div>
+
+            <h2 class="product-price">$498.84 <span class="old-price">$750.00</span></h2>
+
+            <div class="description">
+                <p>Experience timeless elegance with our Automatic Luxury Chronograph. Handcrafted with precision, this
+                    watch features a genuine leather strap, sapphire crystal glass, and kinetic movement mechanisms that
+                    offer a seamless aesthetic inside the dial. Perfect for both formal occasions and casual luxury.</p>
+                <ul class="features">
+                    <li><i class="fas fa-check-circle"></i> Water Resistant (50m)</li>
+                    <li><i class="fas fa-check-circle"></i> Swiss Automatic Movement</li>
+                    <li><i class="fas fa-check-circle"></i> Scratch-resistant Sapphire Crystal</li>
+                    <li><i class="fas fa-check-circle"></i> 2-Year International Warranty</li>
+                </ul>
+            </div>
+
+            <!-- Options -->
+            <div class="color-options">
+                <h3>Select Color</h3>
+                <div class="colors">
+                    <div class="color-circle active" style="background: #111;"></div>
+                    <div class="color-circle" style="background: #3b82f6;"></div>
+                    <div class="color-circle" style="background: #5a3d31;"></div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="action-buttons">
+                <!-- Quantity Picker -->
+                <div class="quantity-picker">
+                    <button id="minus"><i class="fas fa-minus"></i></button>
+                    <input type="number" id="qty" value="1" min="1" max="10" readonly>
+                    <button id="plus"><i class="fas fa-plus"></i></button>
+                </div>
+
+                <button class="btn btn-cart"><i class="fas fa-shopping-cart"></i> Add to Cart</button>
+                <button class="btn btn-buy">Buy Now</button>
+            </div>
+
+            <!-- Trust badges for E-Commerce Confidence -->
+            <div class="trust-badges">
+                <div class="badge"><i class="fas fa-truck-fast"></i> Free Shipping</div>
+                <div class="badge"><i class="fas fa-undo"></i> 30-Day Returns</div>
+                <div class="badge"><i class="fas fa-shield-halved"></i> Secure Checkout</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Reviews Section -->
+    <div class="reviews-container">
+        <h2>Customer Reviews</h2>
+        <div class="reviews-grid">
+            <!-- Review 1 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <strong>Michael R.</strong>
+                        <span class="verified"><i class="fas fa-check-circle"></i> Verified Buyer</span>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star"></i>
+                    </div>
+                </div>
+                <h3>Absolutely stunning craftsmanship</h3>
+                <p>The pictures simply do not do it justice. The deep dial design combined with the sapphire glass makes
+                    it look ten times its price. Highly recommended for any serious collector.</p>
+                <span class="review-date">Posted 2 weeks ago</span>
+            </div>
+
+            <!-- Review 2 -->
+            <div class="review-card">
+                <div class="review-header">
+                    <div class="reviewer-info">
+                        <strong>James T.</strong>
+                        <span class="verified"><i class="fas fa-check-circle"></i> Verified Buyer</span>
+                    </div>
+                    <div class="stars">
+                        <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i
+                            class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+                    </div>
+                </div>
+                <h3>Great weight and feel</h3>
+                <p>Looks amazing and feels premium on the wrist. My only slight issue is that the leather strap takes a
+                    couple of days to break in, but after that, it's incredibly comfortable.</p>
+                <span class="review-date">Posted 1 month ago</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Script for Thumbnails and Form -->
+    <script>
+        const img = document.getElementById('mainImg');
+
+        // Thumbnail Switching Script
+        function changeImage(src) {
+            img.src = src;
+
+            // Update active state on thumbnails
+            document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+            event.target.classList.add('active');
+        }
+
+        // Quantity Increment/Decrement
+        let qtyInput = document.getElementById('qty');
+        document.getElementById('plus').addEventListener('click', () => {
+            qtyInput.value = parseInt(qtyInput.value) + 1;
+        });
+        document.getElementById('minus').addEventListener('click', () => {
+            if (parseInt(qtyInput.value) > 1) {
+                qtyInput.value = parseInt(qtyInput.value) - 1;
+            }
+        });
+
+        // Color Selection Logic
+        document.querySelectorAll('.color-circle').forEach(circle => {
+            circle.addEventListener('click', (e) => {
+                document.querySelectorAll('.color-circle').forEach(c => c.classList.remove('active'));
+                e.target.classList.add('active');
+            });
+        });
+    </script>
+</body>
+
+</html>
