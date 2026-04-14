@@ -14,5 +14,5 @@ CREATE TABLE IF NOT EXISTS users (
 
 -- Insert 2 sample users with placeholder hashed passwords
 INSERT INTO users (name, email, password, phone, address, role) VALUES
-('Admin User', 'admin@watchstore.com', '$2a$10$abcdefghijklmnopqrstuv', '123-456-7890', '100 Admin Dashboard Way, Tech City', 'admin'),
-('John Doe', 'john.doe@example.com', '$2a$10$vwxyzabcdefghijklmnopq', '987-654-3210', '404 Standard User Ln, Suburbia', 'user');
+('Admin User', 'admin@watchstore.com', '123', '123-456-7890', '100 Admin Dashboard Way, Tech City', 'admin'),
+('John Doe', 'john.doe@example.com', '123', '987-654-3210', '404 Standard User Ln, Suburbia', 'user');

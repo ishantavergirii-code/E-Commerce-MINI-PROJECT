@@ -37,7 +37,7 @@
         
         <!-- Sign In Container -->
         <div class="form-container sign-in-container">
-            <form action="#">
+            <form onsubmit="loginUser(event)">
                 <h1>Sign In</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-google"></i></a>
@@ -45,8 +45,8 @@
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 </div>
                 <span class="subtitle">or use your account</span>
-                <input type="email" placeholder="Email" required />
-                <input type="password" placeholder="Password" required />
+                <input type="email" id="email" placeholder="Email" required />
+                <input type="password" id="password" placeholder="Password" required />
                 <a href="#" class="forgot-password">Forgot your password?</a>
                 <button type="submit">Sign In</button>
                 <span class="mobile-switch" id="signUpMobile">Don't have an account? <strong>Sign Up</strong></span>
@@ -95,6 +95,36 @@
         signInMobile.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
         });
-    </script>
+
+
+    function loginUser(event) {
+    event.preventDefault(); // 🚨 this line is must
+
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+
+    fetch('http://localhost:3000/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, password })
+    })
+    .then(res => res.json())
+    .then(data => {
+        if (data.success) {
+            alert("Login Successful ✅");
+
+            localStorage.setItem("user", JSON.stringify(data.user));
+
+            window.location.href = "index.html";
+        } else {
+            alert("Invalid Email or Password ❌");
+        }
+    })
+    .catch(err => {
+        console.error(err);
+        alert("Server error");
+    });
+}
+</script>
 </body>
 </html>
