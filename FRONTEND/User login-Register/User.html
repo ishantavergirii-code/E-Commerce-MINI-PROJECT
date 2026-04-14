@@ -72,6 +72,7 @@
         </div>
     </div>
 
+    <script src="../script.js"></script>
     <script>
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
@@ -98,61 +99,10 @@
             container.classList.remove("right-panel-active");
         });
 
-
+        // Dummy register since there is no backend
         function registerUser(event) {
             event.preventDefault();
-
-            const name = document.getElementById("reg-name").value;
-            const email = document.getElementById("reg-email").value;
-            const password = document.getElementById("reg-password").value;
-
-            fetch('http://127.0.0.1:3000/auth/register', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name, email, password })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Registration Successful ✅ Please Sign In.");
-                        container.classList.remove("right-panel-active");
-                    } else {
-                        alert(data.message || "Registration Failed ❌");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Server error. Ensure backend is running!");
-                });
-        }
-
-        function loginUser(event) {
-            event.preventDefault(); // 🚨 this line is must
-
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
-
-            fetch('http://127.0.0.1:3000/auth/login', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ email, password })
-            })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.success) {
-                        alert("Login Successful ✅");
-
-                        localStorage.setItem("user", JSON.stringify(data.user));
-
-                        window.location.href = "index.html";
-                    } else {
-                        alert("Invalid Email or Password ❌");
-                    }
-                })
-                .catch(err => {
-                    console.error(err);
-                    alert("Server error. Ensure backend is running on port 3000!");
-                });
+            alert("Registration disabled. Please use default users.");
         }
     </script>
 </body>
