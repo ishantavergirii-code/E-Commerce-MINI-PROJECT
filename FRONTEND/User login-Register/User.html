@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login & Register | Premium Store</title>
     <link rel="stylesheet" href="User.css">
-    
+
     <!-- Modern Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
+
     <!-- FontAwesome for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
     <div class="container" id="container">
         <!-- Sign Up Container -->
         <div class="form-container sign-up-container">
-            <form action="#">
+            <form onsubmit="registerUser(event)">
                 <h1>Create Account</h1>
                 <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-google"></i></a>
@@ -27,14 +29,14 @@
                     <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
                 </div>
                 <span class="subtitle">or use your email for registration</span>
-                <input type="text" placeholder="Name" required />
-                <input type="email" placeholder="Email" required />
-                <input type="password" placeholder="Password" required />
+                <input type="text" id="reg-name" placeholder="Name" required />
+                <input type="email" id="reg-email" placeholder="Email" required />
+                <input type="password" id="reg-password" placeholder="Password" required />
                 <button type="submit">Sign Up</button>
                 <span class="mobile-switch" id="signInMobile">Already have an account? <strong>Sign In</strong></span>
             </form>
         </div>
-        
+
         <!-- Sign In Container -->
         <div class="form-container sign-in-container">
             <form onsubmit="loginUser(event)">
@@ -52,7 +54,7 @@
                 <span class="mobile-switch" id="signUpMobile">Don't have an account? <strong>Sign Up</strong></span>
             </form>
         </div>
-        
+
         <!-- Overlay Container for Desktop -->
         <div class="overlay-container">
             <div class="overlay">
@@ -74,7 +76,7 @@
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
         const container = document.getElementById('container');
-        
+
         const signInMobile = document.getElementById('signInMobile');
         const signUpMobile = document.getElementById('signUpMobile');
 
@@ -86,7 +88,7 @@
         signInButton.addEventListener('click', () => {
             container.classList.remove("right-panel-active");
         });
-        
+
         // Mobile text links
         signUpMobile.addEventListener('click', () => {
             container.classList.add("right-panel-active");
@@ -97,34 +99,62 @@
         });
 
 
-    function loginUser(event) {
-    event.preventDefault(); // 🚨 this line is must
+        function registerUser(event) {
+            event.preventDefault();
 
-    const email = document.getElementById("email").value;
-    const password = document.getElementById("password").value;
+            const name = document.getElementById("reg-name").value;
+            const email = document.getElementById("reg-email").value;
+            const password = document.getElementById("reg-password").value;
 
-    fetch('http://localhost:3000/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
-    })
-    .then(res => res.json())
-    .then(data => {
-        if (data.success) {
-            alert("Login Successful ✅");
-
-            localStorage.setItem("user", JSON.stringify(data.user));
-
-            window.location.href = "index.html";
-        } else {
-            alert("Invalid Email or Password ❌");
+            fetch('http://127.0.0.1:3000/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name, email, password })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Registration Successful ✅ Please Sign In.");
+                        container.classList.remove("right-panel-active");
+                    } else {
+                        alert(data.message || "Registration Failed ❌");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Server error. Ensure backend is running!");
+                });
         }
-    })
-    .catch(err => {
-        console.error(err);
-        alert("Server error");
-    });
-}
-</script>
+
+        function loginUser(event) {
+            event.preventDefault(); // 🚨 this line is must
+
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+
+            fetch('http://127.0.0.1:3000/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email, password })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        alert("Login Successful ✅");
+
+                        localStorage.setItem("user", JSON.stringify(data.user));
+
+                        window.location.href = "index.html";
+                    } else {
+                        alert("Invalid Email or Password ❌");
+                    }
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert("Server error. Ensure backend is running on port 3000!");
+                });
+        }
+    </script>
 </body>
+
 </html>
