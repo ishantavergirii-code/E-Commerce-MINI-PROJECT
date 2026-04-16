@@ -97,6 +97,11 @@
 
     </main>
 
+<div class="map-wrapper">
+    <iframe 
+        src="https://www.openstreetmap.org/export/embed.html?bbox=68.1%2C6.5%2C97.4%2C37.6&layer=mapnik">
+    </iframe>
+</div>
     <footer class="footer">
 
         <div class="footer-container">
@@ -177,6 +182,54 @@
 
     <script src="../script.js"></script>
     <script src="js/script.js"></script>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // 🌍 Initialize Map (India)
+    var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+    // 🌑 Dark Map Theme
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: 'Map data'
+    }).addTo(map);
+
+    // 🔴 Custom Red Marker Icon
+    const redIcon = new L.Icon({
+        iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        iconSize: [32, 32]
+    });
+
+    // 🏬 Store Data
+    const stores = [
+        { name: "Velmora Luxury", city: "Mumbai", coords: [19.0760, 72.8777] },
+        { name: "Velmora Premium", city: "Pune", coords: [18.5204, 73.8567] },
+        { name: "Velmora Elite", city: "Delhi", coords: [28.6139, 77.2090] }
+    ];
+
+    // 📍 Add Markers
+    const markers = [];
+
+    stores.forEach(store => {
+        const marker = L.marker(store.coords, { icon: redIcon })
+            .addTo(map)
+            .bindPopup(`<b>${store.name}</b><br>${store.city}`);
+
+        markers.push({ marker, city: store.city });
+    });
+
+    // 🔍 Search Function
+    document.getElementById("searchBox").addEventListener("keyup", function() {
+        const input = this.value.toLowerCase();
+
+        markers.forEach(obj => {
+            if (obj.city.toLowerCase().includes(input)) {
+                map.setView(obj.marker.getLatLng(), 8);
+                obj.marker.openPopup();
+            }
+        });
+    });
+</script>
+
 </body>
 
 </html>

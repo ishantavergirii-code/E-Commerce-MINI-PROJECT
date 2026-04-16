@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classico — Precision in Motion</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <header>
+        <div class="top-bar">
+
+            <div class="logo">
+                <a href="index.html">Classico</a>
+            </div>
+
+            <form action="../Category page/Category.html" method="get" class="search-box">
+                <input type="text" name="query" placeholder="Search..." required>
+            </form>
+
+            <div class="top-links">
+                <ul id="topLinksList">
+                    <li><a href="../User login-Register/User.html">Login</a></li>
+                    <li><a href="../User login-Register/User.html">Register</a></li>
+                    <!-- Start User Icon -->
+                    <li style="margin-left: 10px; display: flex; align-items: center;">
+                        <img id="userIcon" src="https://ui-avatars.com/api/?name=Guest&background=1f2937&color=fff" alt="User Icon" style="width: 32px; height: 32px; border-radius: 50%; object-fit: cover;">
+                    </li>
+                    <!-- End User Icon -->
+                </ul>
+            </div>
+
+        </div>
+
+        <nav class="main-nav">
+            <ul>
+                <li><a href="../Category page/Category.html">Watches</a></li>
+                <li><a href="../Category page/Category.html">Men</a></li>
+                <li><a href="../Category page/Category.html">Women</a></li>
+                <li><a href="../Category page/Category.html">Gifts</a></li>
+                <li><a href="#">Services</a></li>
+            </ul>
+        </nav>
+
+
+
+    </header>
+
+    <main>
+
+        <section class="intro">
+            <h1>Precision in Motion.</h1>
+            <p>Scroll down to experience the assembly.</p>
+        </section>
+
+        <div id="scroll-container">
+            <div class="sticky-wrapper">
+                <canvas id="hero-lightpass"></canvas>
+
+                <div class="scroll-text" id="text1">
+                    <h2>Exquisite Craftsmanship</h2>
+                    <p>Every piece perfectly engineered for performance.</p>
+                </div>
+
+                <div class="scroll-text" id="text2">
+                    <h2>Unrivaled Accuracy</h2>
+                    <p>Tested rigorously in extreme conditions.</p>
+                </div>
+
+                <div class="scroll-text" id="text3">
+                    <h2>A Masterpiece Born</h2>
+                    <p>Timeless elegance for the modern era.</p>
+                </div>
+            </div>
+        </div>
+
+
+
+        <!-- Watch Slider Section -->
+        <section class="slider-section">
+            <h2 class="section-title">Featured Timepieces</h2>
+            <div class="slider-container">
+                <div class="slider-wrapper" id="sliderWrapper">
+                    <div class="slide">
+                        <img src="../assets/images/watches/luxury_watch_one.png" alt="Luxury Chronograph">
+                        <div class="slide-caption">Luxury Chronograph</div>
+                    </div>
+                    <div class="slide">
+                        <img src="../assets/images/watches/modern_smart_watch.png" alt="Modern Smart Watch">
+                        <div class="slide-caption">Modern Smart Watch</div>
+                    </div>
+                    <div class="slide">
+                        <img src="../assets/images/watches/classic_leather_watch.png" alt="Classic Leather Watch">
+                        <div class="slide-caption">Classic Leather Watch</div>
+                    </div>
+                    <div class="slide">
+                        <img src="../assets/images/watches/sport_dive_watch.png" alt="Sport Dive Watch">
+                        <div class="slide-caption">Sport Dive Watch</div>
+                    </div>
+                </div>
+                <button class="slider-btn prev-btn" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                <button class="slider-btn next-btn" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+            </div>
+        </section>
+
+    </main>
+
+<div class="map-wrapper" style="padding: 24px 20px; max-width: 1100px; margin: 0 auto;">
+    <h2 style="margin-bottom: 12px;">Store locator</h2>
+    <input id="searchBox" type="text" placeholder="Search city (e.g. Mumbai)..." style="max-width: 360px; width: 100%; padding: 10px 12px; margin-bottom: 12px; border-radius: 10px; border: 1px solid #333; background: #111; color: #eee;">
+    <div id="map" style="height: 360px; width: 100%; border-radius: 12px; border: 1px solid #333;"></div>
+</div>
+    <footer class="footer">
+
+        <div class="footer-container">
+
+            <!-- COLUMN 1 -->
+            <div class="footer-column">
+                <h3>COLLECTIONS</h3>
+                <ul>
+                    <li><a href="#">Classico Automatics</a></li>
+                    <li><a href="#">Police Batman</a></li>
+                    <li><a href="#">Stellar</a></li>
+                    <li><a href="#">Raga Power Pearls</a></li>
+                    <li><a href="#">Nebula Jewels</a></li>
+                    <li><a href="#">Grandmaster</a></li>
+                    <li><a href="#">Maritime</a></li>
+                </ul>
+            </div>
+
+            <!-- COLUMN 2 -->
+            <div class="footer-column">
+                <h3>CUSTOMER SERVICE</h3>
+                <ul>
+                    <li><a href="#">Payment Options</a></li>
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Encircle Program</a></li>
+                    <li><a href="#">Find Classico World Stores</a></li>
+                    <li><a href="#">E Warranty Registration</a></li>
+                </ul>
+            </div>
+
+            <!-- COLUMN 3 -->
+            <div class="footer-column">
+                <h3>CONTACT US</h3>
+                <ul>
+                    <li><a href="tel:18002660123">1800-266-0123</a></li>
+                    <li><a href="mailto:customercare@classico.co.in">customercare@classico.co.in</a></li>
+                    <li><a href="#">Help & Contact</a></li>
+                    <li><a href="#">FAQs</a></li>
+                </ul>
+            </div>
+
+            <!-- COLUMN 4 -->
+            <div class="footer-column">
+                <h3>ABOUT TITAN</h3>
+                <ul>
+                    <li><a href="#">Brand Protection</a></li>
+                    <li><a href="#">Corporate</a></li>
+                    <li><a href="#">Careers</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+
+            <!-- COLUMN 5 -->
+            <div class="footer-column support-column">
+                <h3 class="follow-title">Follow Us With</h3>
+                <div class="social-icons">
+                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-x-twitter"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                </div>
+
+                <div class="help-section">
+                    <p class="help-text">Want Help? <a href="#" class="chat-link">Click Here</a> To Chat With Us On</p>
+                    <p class="hours">Operating Hours: 10:00AM To 10:00PM</p>
+                    <p class="days">Monday To Sunday</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="footer-bottom">
+            © 2026 Classico. All Rights Reserved.
+        </div>
+
+    </footer>
+
+
+    <script type="module" src="../script.js"></script>
+    <script src="js/script.js"></script>
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="">
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script>
+    // 🌍 Initialize Map (India)
+    var map = L.map('map').setView([20.5937, 78.9629], 5);
+
+    // 🌑 Dark Map Theme
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: 'Map data'
+    }).addTo(map);
+
+    // 🔴 Custom Red Marker Icon
+    const redIcon = new L.Icon({
+        iconUrl: 'https://maps.google.com/mapfiles/ms/icons/red-dot.png',
+        iconSize: [32, 32]
+    });
+
+    // 🏬 Store Data
+    const stores = [
+        { name: "Velmora Luxury", city: "Mumbai", coords: [19.0760, 72.8777] },
+        { name: "Velmora Premium", city: "Pune", coords: [18.5204, 73.8567] },
+        { name: "Velmora Elite", city: "Delhi", coords: [28.6139, 77.2090] }
+    ];
+
+    // 📍 Add Markers
+    const markers = [];
+
+    stores.forEach(store => {
+        const marker = L.marker(store.coords, { icon: redIcon })
+            .addTo(map)
+            .bindPopup(`<b>${store.name}</b><br>${store.city}`);
+
+        markers.push({ marker, city: store.city });
+    });
+
+    // 🔍 Search Function
+    const searchBox = document.getElementById("searchBox");
+    if (searchBox) {
+        searchBox.addEventListener("keyup", function() {
+            const input = this.value.toLowerCase();
+            markers.forEach(obj => {
+                if (obj.city.toLowerCase().includes(input)) {
+                    map.setView(obj.marker.getLatLng(), 8);
+                    obj.marker.openPopup();
+                }
+            });
+        });
+    }
+</script>
+
+</body>
+
+</html>

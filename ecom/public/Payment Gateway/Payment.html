@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Checkout | Classico</title>
+    <link rel="stylesheet" href="Payment.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="checkout-wrapper">
+        <div class="order-summary">
+            <h2>Order Summary</h2>
+            <div class="items-list" id="itemsList"></div>
+            <div class="summary-totals" id="summaryTotals"></div>
+        </div>
+
+        <div class="payment-container">
+            <h2>Payment</h2>
+            <p class="subtitle">Pay securely with PayPal Sandbox (server-backed create & capture)</p>
+            <p class="method-instruction" id="authHint"></p>
+            <div id="paypal-button-container"></div>
+            <p class="muted" style="margin-top:16px;opacity:0.8;"><a href="../Cart order/Cart.html">Back to cart</a> · <a href="../Category page/Category.html">Continue shopping</a></p>
+        </div>
+    </div>
+
+    <script type="module">
+        import { apiFetch, getToken } from "/assets/js/api.js";
+
+        const params = new URLSearchParams(location.search);
+        const source = params.get("source") === "intent" ? "intent" : "cart";
+        const productId = params.get("productId");
+        const quantity = Math.max(1, Math.min(99, parseInt(params.get("quantity") || "1", 10)));
+
+        let intentToken = null;
+
+        function fmt(n) {
+            return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(Number(n));
+        }
+
+        function ph(name) {
+            return `https://placehold.co/100x100/111827/60a5fa/png?text=${encodeURIComponent((name || "W").slice(0, 6))}`;
+        }
+
+        async function loadSdk(clientId) {
+            await new Promise((resolve, reject) => {
+                if (document.querySelector('script[data-paypal-sdk]')) return resolve();
+                const s = document.createElement("script");
+                s.dataset.paypalSdk = "1";
+                s.src = `https://www.paypal.com/sdk/js?client-id=${encodeURIComponent(clientId)}&currency=USD`;
+                s.onload = () => resolve();
+                s.onerror = () => reject(new Error("PayPal SDK failed to load"));
+                document.head.appendChild(s);
+            });
+        }
+
+        async function init() {
+            if (!getToken()) {
+                document.getElementById("authHint").textContent = "Please log in to complete checkout.";
+                setTimeout(() => { location.href = "../User login-Register/User.html"; }, 800);
+                return;
+            }
+
+            let items = [];
+            let total = 0;
+
+            if (source === "intent") {
+                if (!productId) throw new Error("Missing productId");
+                const { intentToken: t } = await apiFetch("/api/checkout/intent", {
+                    method: "POST",
+                    auth: true,
+                    body: { productId, quantity },
+                });
+                intentToken = t;
+                const resolved = await apiFetch(`/api/checkout/intent/${encodeURIComponent(intentToken)}`);
+                items = resolved.items || [];
+                total = resolved.total;
+            } else {
+                const cart = await apiFetch("/api/cart?page=1&limit=100", { auth: true });
+                const rows = cart.data || [];
+                if (!rows.length) throw new Error("Your cart is empty");
+                items = rows.map((r) => ({
+                    name: r.name,
+                    quantity: r.quantity,
+                    price: r.price,
+                    imageUrl: r.imageUrl,
+                }));
+                total = rows.reduce((s, r) => s + Number(r.price) * Number(r.quantity), 0);
+            }
+
+            document.getElementById("itemsList").innerHTML = items.map((it) => `
+                <div class="item">
+                    <img src="${it.imageUrl || ph(it.name)}" alt="">
+                    <div class="item-details">
+                        <h4>${escapeHtml(it.name)}</h4>
+                        <span>Qty: ${it.quantity}</span>
+                    </div>
+                    <div class="item-price">${fmt(Number(it.price) * Number(it.quantity))}</div>
+                </div>`).join("");
+
+            document.getElementById("summaryTotals").innerHTML = `
+                <div class="summary-line"><span>Subtotal</span><span>${fmt(total)}</span></div>
+                <div class="summary-line"><span>Shipping</span><span>${fmt(0)}</span></div>
+                <div class="summary-line"><span>Tax</span><span>${fmt(0)}</span></div>
+                <div class="summary-line total"><span>Total due</span><span id="totalAmountDisplay">${fmt(total)}</span></div>`;
+
+            const { clientId } = await apiFetch("/api/payment/client-id");
+            if (!clientId) throw new Error("PayPal client id not configured on server");
+
+            await loadSdk(clientId);
+            document.getElementById("paypal-button-container").innerHTML = "";
+
+            paypal.Buttons({
+                createOrder: async () => {
+                    const body = { source };
+                    if (source === "intent") body.intentToken = intentToken;
+                    const { paypalOrderId } = await apiFetch("/api/payment/create-order", { method: "POST", auth: true, body });
+                    return paypalOrderId;
+                },
+                onApprove: async (data) => {
+                    const body = { paypalOrderId: data.orderID, source };
+                    if (source === "intent") body.intentToken = intentToken;
+                    const { orderId } = await apiFetch("/api/payment/capture", { method: "POST", auth: true, body });
+                    location.href = `../success.html?orderId=${encodeURIComponent(orderId)}`;
+                },
+                onError: (err) => {
+                    console.error(err);
+                    alert("Payment error — check PayPal sandbox credentials and console.");
+                },
+            }).render("#paypal-button-container");
+        }
+
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>'"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c]));
+        }
+
+        init().catch((e) => {
+            alert(e.message || "Checkout failed");
+            if ((e.status || 0) === 401) location.href = "../User login-Register/User.html";
+        });
+    </script>
+</body>
+</html>

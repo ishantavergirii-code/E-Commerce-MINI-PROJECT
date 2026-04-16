@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart | Classico</title>
+    <link rel="stylesheet" href="Cart.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="cart-wrapper">
+        <div class="cart-header">
+            <h1>Shopping Cart</h1>
+            <p>You have <span id="cart-count">0</span> items in your cart</p>
+        </div>
+
+        <div class="cart-container">
+            <div class="cart-items" id="cartItems"></div>
+
+            <div class="cart-summary">
+                <h2>Order Summary</h2>
+                <div class="summary-details" id="summaryDetails"></div>
+                <a href="../Payment Gateway/Payment.html?source=cart" class="checkout-btn" id="checkoutBtn">
+                    Proceed to Checkout <i class="fas fa-arrow-right"></i>
+                </a>
+                <div class="secure-checkout">
+                    <i class="fas fa-lock"></i> SSL Secured Checkout
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="pagination" id="cartPager" style="max-width: 1200px; margin: 0 auto 40px; display:flex; gap:12px; justify-content:center; align-items:center;"></div>
+
+    <script type="module">
+        import { apiFetch } from "/assets/js/api.js";
+
+        function ph(name) {
+            return `https://placehold.co/200x200/111827/60a5fa/png?text=${encodeURIComponent((name || "W").slice(0, 8))}`;
+        }
+
+        let page = 1;
+        const limit = 10;
+        let last = { totalPages: 1 };
+
+        async function load() {
+            const res = await apiFetch(`/api/cart?page=${page}&limit=${limit}`, { auth: true });
+            last = res;
+            const items = res.data || [];
+            const totalQty = items.reduce((s, i) => s + Number(i.quantity), 0);
+            document.getElementById("cart-count").textContent = String(totalQty);
+
+            const wrap = document.getElementById("cartItems");
+            if (!items.length) {
+                wrap.innerHTML = `<p style="padding:2rem;">Your cart is empty. <a href="../Category page/Category.html">Browse watches</a></p>`;
+                document.getElementById("summaryDetails").innerHTML = "";
+                renderPager();
+                return;
+            }
+
+            wrap.innerHTML = items.map((it) => `
+                <div class="cart-item" data-pid="${it.productId}">
+                    <img src="${it.imageUrl || ph(it.name)}" alt="" class="item-img">
+                    <div class="item-details">
+                        <span class="item-brand">CLASSICO</span>
+                        <h3>${escapeHtml(it.name)}</h3>
+                        <p class="item-color">Qty: ${it.quantity}</p>
+                    </div>
+                    <div class="item-actions">
+                        <div class="quantity-control">
+                            <button type="button" class="qty-btn minus"><i class="fas fa-minus"></i></button>
+                            <input type="number" class="qty-input" value="${it.quantity}" min="1" readonly>
+                            <button type="button" class="qty-btn plus"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <div class="item-price">${fmt(Number(it.price) * Number(it.quantity))}</div>
+                        <button type="button" class="remove-btn"><i class="fas fa-trash-alt"></i></button>
+                    </div>
+                </div>`).join("");
+
+            wrap.insertAdjacentHTML("beforeend", `<a href="../Category page/Category.html" class="continue-shopping"><i class="fas fa-arrow-left"></i> Continue Shopping</a>`);
+
+            const subtotal = items.reduce((s, i) => s + Number(i.price) * Number(i.quantity), 0);
+            document.getElementById("summaryDetails").innerHTML = `
+                <div class="summary-line"><span>Subtotal</span><span>${fmt(subtotal)}</span></div>
+                <div class="summary-line"><span>Shipping</span><span>${fmt(0)}</span></div>
+                <div class="summary-line"><span>Tax</span><span>${fmt(0)}</span></div>
+                <div class="summary-line divider"></div>
+                <div class="summary-line total"><span>Total</span><span>${fmt(subtotal)}</span></div>`;
+
+            wrap.querySelectorAll(".cart-item").forEach((row) => {
+                const pid = row.getAttribute("data-pid");
+                const input = row.querySelector(".qty-input");
+                row.querySelector(".plus").addEventListener("click", async () => {
+                    input.value = String(parseInt(input.value, 10) + 1);
+                    await apiFetch("/api/cart/update", { method: "PUT", auth: true, body: { productId: pid, quantity: parseInt(input.value, 10) } });
+                    load().catch((e) => alert(e.message));
+                });
+                row.querySelector(".minus").addEventListener("click", async () => {
+                    const n = Math.max(1, parseInt(input.value, 10) - 1);
+                    input.value = String(n);
+                    await apiFetch("/api/cart/update", { method: "PUT", auth: true, body: { productId: pid, quantity: n } });
+                    load().catch((e) => alert(e.message));
+                });
+                row.querySelector(".remove-btn").addEventListener("click", async () => {
+                    await apiFetch("/api/cart/remove", { method: "DELETE", auth: true, body: { productId: pid } });
+                    load().catch((e) => alert(e.message));
+                });
+            });
+
+            renderPager();
+        }
+
+        function renderPager() {
+            const el = document.getElementById("cartPager");
+            el.innerHTML = `
+                <button type="button" id="cp">Prev</button>
+                <span>Page ${page} / ${last.totalPages || 1}</span>
+                <button type="button" id="cn">Next</button>`;
+            document.getElementById("cp").disabled = page <= 1;
+            document.getElementById("cn").disabled = page >= (last.totalPages || 1);
+            document.getElementById("cp").onclick = () => { page = Math.max(1, page - 1); load().catch((e) => alert(e.message)); };
+            document.getElementById("cn").onclick = () => { page = Math.min(last.totalPages || 1, page + 1); load().catch((e) => alert(e.message)); };
+        }
+
+        function fmt(n) {
+            return new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(n);
+        }
+        function escapeHtml(s) {
+            return String(s).replace(/[&<>'"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", "'": "&#39;", '"': "&quot;" }[c]));
+        }
+
+        load().catch((e) => {
+            alert(e.message || "Please log in");
+            location.href = "../User login-Register/User.html";
+        });
+    </script>
+</body>
+</html>
